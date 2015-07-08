@@ -1,8 +1,9 @@
 <?php
 	$input_lines = fgets(STDIN);
-	
-	for ($i=1; $i < 10 ; $i++) {
-		$number[] = $input_lines * $i;
+	define('MAX' , 10);
+
+	for ($i = 1; $i < MAX; $i++) {
+		$answer[] = $input_lines * $i;
 	}
-	$multiple = implode(" " , $number);
-	echo "$multiple";
+	$multiple = implode(" " , $answer);
+	echo $multiple;
