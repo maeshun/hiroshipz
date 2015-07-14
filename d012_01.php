@@ -1,7 +1,6 @@
 <?php
-	$num = fgets(STDIN);
-	if ($num < 0) {
-		echo -$num;
-	} else {
-		echo $num;
+	$inputNumber = fgets(STDIN);
+	if ($inputNumber < 0) {
+		$inputNumber = $inputNumber * (-1);
 	}
+	echo $inputNumber;
