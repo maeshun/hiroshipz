@@ -1,5 +1,5 @@
 <?php
 	$inputNumber = fgets(STDIN);
-	for ($i = 1; $i <= $inputNumber; $i++) {
+	for ($i = 0; $i < $inputNumber; $i++) {
 		echo "*";
 	}
