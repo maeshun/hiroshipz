@@ -1,4 +1,5 @@
 <?php
+// get〜メソッドはそのメソッド内でもtrimしているので、ここでのtrimは不要
 $construction = getLineDatasSplitedBySpace(trim(fgets(STDIN)));//[工事現場のx座標, 工事現場のy座標, 工事現場の騒音の届く距離]
 $shadeNum = trim(fgets(STDIN));//木陰の数
 

@@ -8,12 +8,15 @@ $params = getLineDatasSplitedBySpace(fgets(STDIN));
 for ($i = 0; $i < $users; $i++) {
 	$userScore = 0;
 	$userDatas = getLineDatasSplitedBySpace(fgets(STDIN));
+	// ここ若干ずるい。引数でパラメータ数は与えられているのに・・・
 	for ($j = 0; $j < count($params); $j++) {
 		$userScore += $params[$j] * $userDatas[$j];
 	}
 	$userScores[] = round($userScore);
 }
 
+// 好みの問題だけど、わざわざここで逆順ソートせずに
+// 下のfor分をカウントダウンさせるでも良い。
 rsort($userScores);//ユーザースコアを降順にソート
 
 //上位$rankのユーザースコアを出力
