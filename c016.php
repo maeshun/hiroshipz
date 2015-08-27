@@ -1,6 +1,8 @@
 <?php
+// 変数に統一性がない
+// スネーク？キャメル？
 $inputText = trim(fgets(STDIN));
-$str_length = strlen($inputText);
+$strLength = strlen($inputText);
 $leets = array(
 	'A' => 4,
 	'E' => 3,
@@ -11,8 +13,11 @@ $leets = array(
 	'Z' => 2
 );
 //Leet文とマッチした場合は、Leet文を出力
-for ($i = 0; $i < $str_length; $i++) {
+for ($i = 0; $i < $strLength; $i++) {
 	$outputText = $inputText[$i];
+	// ここ全部回す必要ない
+	// $leets['A'] = 4
+	// なんだよね？
 	foreach ($leets as $key => $value) {
 		if ($key == $inputText[$i]) {
 			$outputText = $leets[$inputText[$i]];

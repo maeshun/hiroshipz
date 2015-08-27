@@ -2,7 +2,7 @@
 $hateNumber = trim(fgets(STDIN));//嫌いな数字
 $totalSickrooms = trim(fgets(STDIN));//病室の総数
 $hopeCount = 0;//希望する病室の数
-$disLike = TRUE;
+$disLike = TRUE;//フラグで判定すること
 
 //嫌いな数字が含まれていない病室番号を出力
 for ($i = 0; $i < $totalSickrooms; $i++) {
