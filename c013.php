@@ -8,6 +8,9 @@ for ($i = 0; $i < $totalSickrooms; $i++) {
 	$sickroomNumber = trim(fgets(STDIN));//病室番号
 	if (strpos($sickroomNumber, $hateNumber) === false) {
 		echo $sickroomNumber . "\n";
+		// 実装としては間違いじゃないけれど、hopeCountは数を数えるための変数ではないよね？
+		// それであればフラグとして判定するほうが良い。
+		// （実際おれもコード読んでて、この件数どこで使うんだと思ってしまった）
 		$hopeCount++;
 	}
 }
