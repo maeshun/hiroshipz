@@ -21,7 +21,6 @@ echo $point;
 
 //空白で区切られたデータを配列で返却する
 function getLineDatasSplitedBySpace($lineData) {
-	$lineData = trim($lineData);
 	$lineDatas = explode(" ", $lineData);
 	return $lineDatas;
 }
