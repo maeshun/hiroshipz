@@ -1,28 +1,27 @@
 <?php
-// 変数に統一性がない
-// スネーク？キャメル？
 $inputText = trim(fgets(STDIN));
 $strLength = strlen($inputText);
-$leets = array(
-	'A' => 4,
-	'E' => 3,
-	'G' => 6,
-	'I' => 1,
-	'O' => 0,
-	'S' => 5,
-	'Z' => 2
-);
+$outputText = "";
+
 //Leet文とマッチした場合は、Leet文を出力
 for ($i = 0; $i < $strLength; $i++) {
-	$outputText = $inputText[$i];
-	// ここ全部回す必要ない
-	// $leets['A'] = 4
-	// なんだよね？
-	foreach ($leets as $key => $value) {
-		if ($key == $inputText[$i]) {
-			$outputText = $leets[$inputText[$i]];
-			break;
-		}
+	$outputText .= getLeetChar($inputText[$i]);
+}
+echo $outputText;
+
+// Leet変換した文字を返す
+function getLeetChar($char) {
+	$leets = array(
+		'A' => 4,
+		'E' => 3,
+		'G' => 6,
+		'I' => 1,
+		'O' => 0,
+		'S' => 5,
+		'Z' => 2
+	);
+	if (isset($leets[$char])) {
+		return $leets[$char];
 	}
-	echo $outputText;
+	return $char;//ここの処理すげぇ..
 }

@@ -1,16 +1,34 @@
 <?php
 $numOfIpaddress = trim(fgets(STDIN));
-//IPアドレスの正規表現
-//"."もエスケープしないといけない
-$regex = '/^(([1-9]?[0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([1-9]?[0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$/';
+define("OCTET", 4);
 
-//正規表現でIPアドレスに一致しているかチェック
 for ($i = 0; $i < $numOfIpaddress; $i++) {
-	$ipaddress = trim(fgets(STDIN));
-	if(preg_match($regex, $ipaddress)) {
+	$flag = TRUE;
+	$addressDatas = getLineDatasSplitedBySpace(fgets(STDIN));
+
+	//0 ~ 255以内か判定
+	foreach ($addressDatas as $addressData) {
+		if ($addressData <= 0 && 255 < $addressData) {
+			$flag = FALSE;
+		} else {
+			$flag = TRUE;
+		}
+	}
+
+	//第4オクテットのIPアドレスか判定
+	if (count($addressDatas) != OCTET) {
+		$flag = FALSE;
+	};
+
+	if ($flag) {
 		echo "True";
 	} else {
 		echo "False";
 	}
-	echo "\n";
+}
+
+//カンマで区切られたデータを配列で返却する
+function getLineDatasSplitedBySpace($lineData) {
+	$lineDatas = explode(".", $lineData);
+	return $lineDatas;
 }
