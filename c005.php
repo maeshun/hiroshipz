@@ -3,32 +3,33 @@ $numOfIpaddress = trim(fgets(STDIN));
 define("OCTET", 4);
 
 for ($i = 0; $i < $numOfIpaddress; $i++) {
-	$flag = TRUE;
-	$addressDatas = getLineDatasSplitedBySpace(fgets(STDIN));
-
-	//0 ~ 255以内か判定
-	foreach ($addressDatas as $addressData) {
-		if ($addressData <= 0 && 255 < $addressData) {
-			$flag = FALSE;
-		} else {
-			$flag = TRUE;
-		}
-	}
+	$addressDatas = getLineDatasSplitedByComma(fgets(STDIN));
 
 	//第4オクテットのIPアドレスか判定
 	if (count($addressDatas) != OCTET) {
-		$flag = FALSE;
-	};
+		echo "False" . "\n";
+		continue;
+	}
 
-	if ($flag) {
-		echo "True";
+	//0 ~ 255以内か判定
+	$numFlag = TRUE;
+	foreach ($addressDatas as $addressData) {
+		if (0 > $addressData || 255 < $addressData) {
+			$numFlag = FALSE;
+			break;
+		}
+	}
+
+	//オクテットの数が4かつ数値が0 ~ 255の場合True
+	if ($numFlag) {
+		echo "True" . "\n";
 	} else {
-		echo "False";
+		echo "False" . "\n";
 	}
 }
 
 //カンマで区切られたデータを配列で返却する
-function getLineDatasSplitedBySpace($lineData) {
+function getLineDatasSplitedByComma($lineData) {
 	$lineDatas = explode(".", $lineData);
 	return $lineDatas;
 }
