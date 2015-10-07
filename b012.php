@@ -7,8 +7,8 @@ for ($i = 0; $i < $numberOfCards; $i++) {
 	$cardNums = str_split($cardNums);
 
 	// イマイチなにをしたい関数なのかが関数名から見えてこない
-	// singleDiditってなに？
-	$x = outputFirstDidit($cardNums);
+	// singleDigitってなに？
+	$x = outputFirstDigit($cardNums);
 	echo $x . "\n";
 }
 
@@ -17,7 +17,7 @@ for ($i = 0; $i < $numberOfCards; $i++) {
 // 後々計算は使うけど、表示はしないような利用ケースが来た場合困る
 
 //カード番号１桁目を出力
-function outputFirstDidit($cardNums) {
+function outputFirstDigit($cardNums) {
 	//偶数桁・奇数桁の配列を取得
 
 	$totalOdd = 0;//奇数の合計
@@ -57,7 +57,7 @@ function outputFirstDidit($cardNums) {
 	// 10で割った余りをどうするかって考えれば良いじゃない
 	$x = 0;
 	$remainder = $total % 10;
-	if (!($remainder === 0)) {
+	if ($remainder !== 0) {
 		$x = 10 - $remainder;
 	}
 	return $x;
