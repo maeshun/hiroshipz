@@ -3,8 +3,8 @@ $numberOfCards = trim(fgets(STDIN));//カードの枚数
 
 for ($i = 0; $i < $numberOfCards; $i++) {
 	//カード番号
-	$cardNums = trim(fgets(STDIN));
-	$cardNums = str_split($cardNums);
+	$cardNum = trim(fgets(STDIN));
+	$cardNums = str_split($cardNum);
 
 	// イマイチなにをしたい関数なのかが関数名から見えてこない
 	// singleDigitってなに？
@@ -22,6 +22,7 @@ function outputFirstDigit($cardNums) {
 
 	$totalOdd = 0;//奇数の合計
 	$totalEven = 0;//偶数の合計
+	print_r($cardNums);
 
 	for ($i = 0; $i < count($cardNums) - 1; $i++) {
 		if ($i % 2 === 0) {
@@ -31,11 +32,13 @@ function outputFirstDigit($cardNums) {
 			// 一言説明を書いておくべき
 			$evens[] = $cardNums[$i];
 		} else {
-			$odds[] = $cardNums[$i];
 			//奇数行の総和を取得
 			$totalOdd += $cardNums[$i];
 		}
 	}
+
+	print_r($evens);
+	print_r($odds);
 
 	//偶数桁の総和を取得
 	foreach ($evens as $even) {
