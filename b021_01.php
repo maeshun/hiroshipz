@@ -1,39 +1,38 @@
 <?php
 $wordCount = trim(fgets(STDIN)); // 単語の数
 
-/// 単語を複数系に変換する（正規表現）
+// 単語を複数系に変換する（正規表現）
 for ($i = 0; $i < $wordCount; $i++) {
 
 	$word = trim(fgets(STDIN)); // 単語
-	$formattedWord = ""; // 複数形に変換された単語
+	$plural = convertThePlural($word);
 
-	if (preg_match('/s$|sh$|ch$|o$|x$/', $word)) {
-		$formattedWord = $word . 'es';
+	print $plural . "\n";
+}
+
+
+/**
+ * 単語を複数形に変換する
+ *
+ * @param string $word 変換元の文字列
+ * @return string $plural 複数形に変換した文字列
+ */
+function convertThePlural($word) {
+
+	$plural = ""; // 複数形
+
+	if (preg_match('/(s|sh|ch|o|x)$/', $word)) {
+		$plural = $word . 'es';
+
+	} elseif (preg_match('/(f|fe)$/', $word)) {
+		$plural = preg_replace('/(f|fe)$/', 'ves', $word);
+
+	} elseif (preg_match('/[^aiueo]y$/', $word)) {
+		$plural = preg_replace('/y$/', 'ies', $word);
+
+	} else {
+		$plural = $word . 's';
 	}
 
-	if (preg_match('/f$/', $word)) {
-		$replacedWord = substr($word, 0, strlen($word) - 1);
-		$formattedWord = $replacedWord . 'ves';
-	}
-
-	if (preg_match('/fe$/', $word)) {
-		$replacedWord = substr($word, 0, strlen($word) - 2);
-		$formattedWord = $replacedWord . 'ves';
-	}
-
-	// 末尾がyかつ末尾から2文字目が[aiueo]のパターンでない場合の処理　'/(?<![aiueo])y$/'のパターンだとNG
-	if (preg_match('/y$/', $word)) {
-		$replacedWord = substr($word, 0, strlen($word) - 1);
-
-		if (!preg_match('/[aiueo]$/', $replacedWord)) {
-			$formattedWord = $replacedWord . 'ies';
-		}
-	}
-
-	// 上記のいずれの条件にも当てはまらない場合、末尾にsを付ける
-	if ($formattedWord === "") {
-		$formattedWord = $word . 's';
-	}
-
-	print $formattedWord . "\n";
+	return $plural;
 }
