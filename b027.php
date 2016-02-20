@@ -1,17 +1,16 @@
 <?php
-
 $gameData = getLineDataSplitedBySpace(fgets(STDIN));
 
 $numOfColsTrump = $gameData[0]; // トランプの縦列の枚数
 $numOfPlayer = $gameData[2]; // プレイヤーの数
-$trump = [[]]; // トランプの番号を保持する配列
-$matchedTrumpOfPlayers = []; // プレイヤーごとのマッチしたトランプの数を保持する配列
+$trump = []; // トランプの番号を保持する配列
+$matchedTrumpOfPlayers = []; // プレイヤーごとにマッチしたトランプの数を保持する配列
 
-// トランプの初期化
+// トランプの配置情報をトランプ配列に代入
 for ($i = 0; $i < $numOfColsTrump; $i++) {
 	$trump[$i] = getLineDataSplitedBySpace(fgets(STDIN));
 }
-// プレイヤーごとのマッチしたトランプの数の初期化
+// $matchedTrumpOfPlayers配列の初期化
 for ($i = 0; $i < $numOfPlayer; $i++) {
 	$matchedTrumpOfPlayers[$i] = 0;
 }
@@ -21,12 +20,13 @@ $currentPlayer = 0; // 現在のプレイヤー
 
 for ($i = 0; $i < $turn; $i++) {
 	$turnOverTrumps = getLineDataSplitedBySpace(fgets(STDIN)); // めくったトランプ
-	$matchFlag = detectMatchTrumpNumber($turnOverTrumps, $trump);
+	$matchFlag = checkMatchTrumpNumber($turnOverTrumps, $trump);
 
 	if ($matchFlag) {
 		$matchedTrumpOfPlayers[$currentPlayer] += 2;
 	} else {
-		$currentPlayer = playerChange($currentPlayer, $numOfPlayer);
+		$playerCounter++;
+		$currentPlayer = ($playerCounter % $numOfPlayer);
 	}
 }
 
@@ -42,7 +42,7 @@ foreach ($matchedTrumpOfPlayers as $matchedTrumpOfPlayer) {
  * @param array $trump トランプのデータ
  * @return bool
  */
-function detectMatchTrumpNumber($turnOverTrumps, $trump) {
+function checkMatchTrumpNumber($turnOverTrumps, $trump) {
 
 	$turnOverNum1 = $trump[$turnOverTrumps[0] - 1][$turnOverTrumps[1] - 1]; // 1回目にめくったトランプの番号
 	$turnOverNum2 = $trump[$turnOverTrumps[2] - 1][$turnOverTrumps[3] - 1]; // 2回目にめくったトランプの番号
@@ -52,23 +52,6 @@ function detectMatchTrumpNumber($turnOverTrumps, $trump) {
 	} else {
 		return false;
 	}
-}
-
-/**
- * プレイヤーのターンをチェンジする
- *
- * @param int $currentPlayer 現在のプレイヤー
- * @param int $numOfPlayer プレイヤーの数
- * @return int $nextPlayer 次のプレイヤー
- */
-function playerChange($currentPlayer, $numOfPlayer) {
-	$nextPlayer = ($currentPlayer + 1);
-
-	// 現在のプレイヤーが最後のプレイヤーだったら、最初のプレイヤーにターンを戻す
-	if ($currentPlayer == ($numOfPlayer - 1)) {
-		$nextPlayer = 0;
-	}
-	return $nextPlayer;
 }
 
 /**
