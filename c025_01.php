@@ -13,7 +13,6 @@ for ($i = 0; $i < $faxCount; $i++) {
 // 1時間ごとに運ぶ回数を計算し、運ぶ合計回数を出力
 $totalDeliverTimes = 0; // 運ぶ合計回数
 foreach ($faxDataPerHour as $faxData) {
-
 	$totalDeliverTimes += ceil($faxData / $deliveablePaper);
 }
 
