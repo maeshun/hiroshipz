@@ -13,6 +13,7 @@ $newPixels = []; // 新しく生成するpixel配列
 $blocks = []; // pixelをひとまとめにした配列
 
 // まずpixelを横に等分したブロックを作る
+// array_chunkなんてあるんだ！
 $blocks = array_chunk($pixels, $ratio);
 
 // pixelを縦に等分する
@@ -22,9 +23,12 @@ foreach ($blocks as $row => $block) {
 
 		// ブロックの合計値を$newPixelsに格納
 		for ($j = 0; $j < $numOfPixelLine; $j++) {
+			// あれ、ここの代入でおれはwarning出たんだけど・・・
 			$newPixels[$row][$pos] += $block[$i][$j];
 			// $ratioで割り切れたら次のブロックなので、$newPixelsの添字を更新
 			if (($j + 1) % $ratio == 0) {
+				// ↑この書き方に気づいたなら、16行目の処理は不要です。
+				// そうなると階層が一つあがります。
 				$pos++;
 			}
 		}
